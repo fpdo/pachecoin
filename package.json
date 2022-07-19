@@ -1,14 +1,17 @@
 {
-  "name": "bootcamp",
-  "version": "0.2.0",
-  "description": "Decentralized Ethereum Token Exchange",
-  "author": "dev@dappuniversity.com",
+  "name": "pachecoin-exchange",
+  "version": "0.1.0",
+  "description": "Decentralized PacheCoin Token Exchange",
+  "author": "felipe@deoliveira.dev",
   "private": true,
-  "homepage": ".",
+  "homepage": "http://.",
   "engines": {
-    "node": "8.11.1"
+    "node": "^8.11.1"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
     "@truffle/hdwallet-provider": "1.1.0",
     "apexcharts": "^3.6.3",
     "babel-polyfill": "6.26.0",
@@ -25,12 +28,12 @@
     "lodash": "4.17.20",
     "moment": "2.29.0",
     "openzeppelin-solidity": "2.1.3",
-    "react": "16.13.1",
+    "react": "^18.2.0",
     "react-apexcharts": "^1.3.7",
     "react-bootstrap": "1.3.0",
-    "react-dom": "16.13.1",
-    "react-redux": "7.2.1",
-    "react-scripts": "3.4.3",
+    "react-dom": "^18.2.0",
+    "react-redux": "^7.2.1",
+    "react-scripts": "5.0.1",
     "redux": "4.0.5",
     "redux-logger": "3.0.6",
     "reselect": "4.0.0",
@@ -38,12 +41,13 @@
     "truffle": "5.5.10",
     "truffle-flattener": "1.5.0",
     "truffle-hdwallet-provider-privkey": "0.3.0",
+    "web-vitals": "^2.1.4",
     "web3": "1.2.6"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -54,5 +58,46 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.18.6",
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.6",
+    "@babel/plugin-proposal-function-sent": "^7.18.6",
+    "@babel/plugin-proposal-json-strings": "^7.18.6",
+    "@babel/plugin-proposal-numeric-separator": "^7.18.6",
+    "@babel/plugin-proposal-throw-expressions": "^7.18.6",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-react": "^7.18.6",
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0"
+  },
+  "browser": {
+    "crypto": false
+  },
+  "main": "config-overrides.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpdo/pachecoin.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fpdo/pachecoin/issues"
+  }
 }
