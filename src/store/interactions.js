@@ -1,5 +1,7 @@
 import Web3 from "web3"
-import { web3Loaded, accountLoaded, tokenLoaded, exchangeLoaded } from "./actions"
+import { web3Loaded, web3AccountLoaded, tokenLoaded, exchangeLoaded } from "./actions"
+import Token from '../abis/Token.json'
+import Exchange from '../abis/Exchange.json'
 
 export const loadWeb3 = async (dispatch) => {
   if (typeof window.ethereum !== 'undefined') {
@@ -14,44 +16,44 @@ export const loadWeb3 = async (dispatch) => {
 
 export const loadAccount = async (dispatch, web3) => {
   const accounts = await web3.eth.getAccounts()
-  const account = accounts[0]
+  const account = await accounts[0]
   if (typeof account !== 'undefined') {
-    dispatch(accountLoaded(account))
-    return accounts
+    dispatch(web3AccountLoaded(account))
+    return account
   } else {
     window.alert('Please login with MetaMask')
     return null
   }
 }
 
-export const loadToken = async (dispath, token, web3) => {
-  const networkId = await web3.eth.net.getId()
+export const loadToken = async (dispatch, networkId, web3) => {
   if (typeof networkId !== 'undefined') {
-    const token_contract = new web3.eth.Contract(token.abi, token.networks[networkId].address)
+    const token_contract = new web3.eth.Contract(Token.abi, Token.networks[networkId].address)
     if (typeof token_contract !== 'undefined') {
-      dispath(tokenLoaded(token_contract))
+      dispatch(tokenLoaded(token_contract))
+      return token_contract
     } else {
-      window.alert('Unable to retrieve token')
+      console.log('Unable to retrieve token')
       return null
     }
   } else {
-    window.alert('Unable to retrieve network id')
+    console.log('Unable to retrieve network id')
     return null
   }
 }
 
-export const loadExchange = async (dispath, exchange, web3) => {
-  const networkId = await web3.eth.net.getId()
+export const loadExchange = async (dispatch, networkId, web3) => {
   if (typeof networkId !== 'undefined') {
-    const exchange_contract = new web3.eth.Contract(exchange.abi, exchange.networks[networkId].address)
+    const exchange_contract = new web3.eth.Contract(Exchange.abi, Exchange.networks[networkId].address)
     if (typeof exchange_contract !== 'undefined') {
-      dispath(exchangeLoaded(exchange_contract))
+      dispatch(exchangeLoaded(exchange_contract))
+      return exchange_contract
     } else {
-      window.alert('Unable to retrieve exchange')
+      console.log('Unable to retrieve exchange')
       return null
     }
   } else {
-    window.alert('Unable to retrieve network id')
+    console.log('Unable to retrieve network id')
     return null
   }
 }
