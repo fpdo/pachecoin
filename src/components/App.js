@@ -19,15 +19,12 @@ class App extends Component {
     const token = await loadToken(dispatch, networkId, web3)
     if (!token) {
       window.alert('Token smart contract not detected in the current network')
-      return
     }
 
     const exchange = await loadExchange(dispatch, networkId, web3)
     if (!exchange) {
       window.alert('Exchange smart contract not dected in the current network')
-      return
     }
-    console.log(token)
     console.log(exchange)
   }
 

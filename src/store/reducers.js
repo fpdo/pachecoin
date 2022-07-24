@@ -24,6 +24,12 @@ function exchange(state = {}, action) {
   switch (action.type) {
     case 'EXCHANGE_LOADED':
       return { ...state, loaded: true, exchange: action.exchange }
+    case 'CANCELLED ORDERS LOADED':
+      return { ...state, cancelledOrders: { loaded: true, data: action.cancelledOrders } }
+    case 'TRADE ORDERS LOADED':
+      return { ...state, tradeOrders: { loaded: true, data: action.tradeOrders } }
+    case 'OFFER ORDERS LOADED':
+      return { ...state, offerOrders: { loaded: true, data: action.offerOrders } }
     default:
       return state
   }

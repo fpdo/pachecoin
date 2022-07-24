@@ -28,3 +28,27 @@ export function exchangeLoaded(exchange) {
     exchange
   }
 }
+
+// CANCELLED ORDERS
+export function cancelledOrdersLoaded(cancelledOrders) {
+  return {
+    type: 'CANCELLED ORDERS LOADED',
+    cancelledOrders
+  }
+}
+
+// TRADE ORDERS
+export function tradeOrdersLoaded(tradeOrders) {
+  return {
+    type: 'TRADE ORDERS LOADED',
+    tradeOrders
+  }
+}
+
+// ORDERS
+export function offerOrdersLoaded(offerOrders) {
+  return {
+    type: 'OFFER ORDERS LOADED',
+    offerOrders
+  }
+}
