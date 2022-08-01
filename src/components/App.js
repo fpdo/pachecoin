@@ -25,7 +25,6 @@ class App extends Component {
     if (!exchange) {
       window.alert('Exchange smart contract not dected in the current network')
     }
-    console.log(exchange)
   }
 
   render() {

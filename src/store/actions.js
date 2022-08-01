@@ -37,18 +37,18 @@ export function cancelledOrdersLoaded(cancelledOrders) {
   }
 }
 
-// TRADE ORDERS
-export function tradeOrdersLoaded(tradeOrders) {
+// FILLED ORDERS
+export function filledOrdersLoaded(filledOrders) {
   return {
-    type: 'TRADE ORDERS LOADED',
-    tradeOrders
+    type: 'FILLED ORDERS LOADED',
+    filledOrders
   }
 }
 
-// ORDERS
-export function offerOrdersLoaded(offerOrders) {
+// ALL ORDERS
+export function allOrdersLoaded(allOrders) {
   return {
-    type: 'OFFER ORDERS LOADED',
-    offerOrders
+    type: 'ALL ORDERS LOADED',
+    allOrders
   }
 }

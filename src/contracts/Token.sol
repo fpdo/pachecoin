@@ -4,7 +4,7 @@ pragma solidity >=0.4.22 <0.9.0;
 contract Token {
   // Variables
   string public name = "PacheCoin";
-  string public symbol = "PCH";
+  string public symbol = "PHC";
   uint256 public decimals = 18;
   uint256 public totalSupply;
   mapping(address => uint256) public balanceOf;

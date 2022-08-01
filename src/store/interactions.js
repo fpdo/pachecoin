@@ -1,5 +1,5 @@
 import Web3 from "web3"
-import { web3Loaded, web3AccountLoaded, tokenLoaded, exchangeLoaded, cancelledOrdersLoaded, tradeOrdersLoaded, offerOrdersLoaded } from "./actions"
+import { web3Loaded, web3AccountLoaded, tokenLoaded, exchangeLoaded, cancelledOrdersLoaded, filledOrdersLoaded, allOrdersLoaded } from "./actions"
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
 
@@ -68,14 +68,14 @@ export const loadAllOrders = async (dispatch, exchange) => {
   dispatch(cancelledOrdersLoaded(cancelledOrders))
 
   // Fetch filled orders "Trade" event
-  const tradeStream = await exchange.getPastEvents('Trade', { fromBlock: 0, toBlock: 'latest' })
-  const tradeOrders = tradeStream.map((event) => event.returnValues)
+  const filledStream = await exchange.getPastEvents('Trade', { fromBlock: 0, toBlock: 'latest' })
+  const filledOrders = filledStream.map((event) => event.returnValues)
   // console.log("TRADE", tradeOrders)
-  dispatch(tradeOrdersLoaded(tradeOrders))
+  dispatch(filledOrdersLoaded(filledOrders))
 
   // Fetch all orders "Order" event
-  const orderStream = await exchange.getPastEvents('Order', { fromBlock: 0, toBlock: 'latest' })
-  const offerOrders = orderStream.map((event) => event.returnValues)
+  const allOrderStream = await exchange.getPastEvents('Order', { fromBlock: 0, toBlock: 'latest' })
+  const allOrders = allOrderStream.map((event) => event.returnValues)
   // console.log("ORDER", offerOrders)
-  dispatch(offerOrdersLoaded(offerOrders))
+  dispatch(allOrdersLoaded(allOrders))
 }
