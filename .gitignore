@@ -26,6 +26,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#Json files
-*.json
-!spec/*.json
+#Contract json
+/src/abis/*.json
