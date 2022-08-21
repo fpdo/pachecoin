@@ -33,11 +33,11 @@ export const loadToken = async (dispatch, networkId, web3) => {
       dispatch(tokenLoaded(token_contract))
       return token_contract
     } else {
-      console.log('Unable to retrieve token')
+      // console.log('Unable to retrieve token')
       return null
     }
   } else {
-    console.log('Unable to retrieve network id')
+    // console.log('Unable to retrieve network id')
     return null
   }
 }
@@ -49,11 +49,11 @@ export const loadExchange = async (dispatch, networkId, web3) => {
       dispatch(exchangeLoaded(exchange_contract))
       return exchange_contract
     } else {
-      console.log('Unable to retrieve exchange')
+      // console.log('Unable to retrieve exchange')
       return null
     }
   } else {
-    console.log('Unable to retrieve network id')
+    // console.log('Unable to retrieve network id')
     return null
   }
 }
