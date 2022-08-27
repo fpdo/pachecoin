@@ -33,11 +33,9 @@ export const loadToken = async (dispatch, networkId, web3) => {
       dispatch(tokenLoaded(token_contract))
       return token_contract
     } else {
-      // console.log('Unable to retrieve token')
       return null
     }
   } else {
-    // console.log('Unable to retrieve network id')
     return null
   }
 }
@@ -49,11 +47,9 @@ export const loadExchange = async (dispatch, networkId, web3) => {
       dispatch(exchangeLoaded(exchange_contract))
       return exchange_contract
     } else {
-      // console.log('Unable to retrieve exchange')
       return null
     }
   } else {
-    // console.log('Unable to retrieve network id')
     return null
   }
 }
@@ -62,7 +58,6 @@ export const loadAllOrders = async (dispatch, exchange) => {
   // Fetch cancelled orders "Cancel" event
   const cancelStream = await exchange.getPastEvents('Cancel', { fromBlock: 0, toBlock: 'latest' })
   const cancelledOrders = cancelStream.map((event) => event.returnValues)
-  // console.log("CANCEL", cancelledOrders)
 
   // Add cancelled orders to redux store
   dispatch(cancelledOrdersLoaded(cancelledOrders))
@@ -70,12 +65,10 @@ export const loadAllOrders = async (dispatch, exchange) => {
   // Fetch filled orders "Trade" event
   const filledStream = await exchange.getPastEvents('Trade', { fromBlock: 0, toBlock: 'latest' })
   const filledOrders = filledStream.map((event) => event.returnValues)
-  // console.log("TRADE", tradeOrders)
   dispatch(filledOrdersLoaded(filledOrders))
 
   // Fetch all orders "Order" event
   const allOrderStream = await exchange.getPastEvents('Order', { fromBlock: 0, toBlock: 'latest' })
   const allOrders = allOrderStream.map((event) => event.returnValues)
-  // console.log("ORDER", offerOrders)
   dispatch(allOrdersLoaded(allOrders))
 }

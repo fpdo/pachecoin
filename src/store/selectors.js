@@ -1,4 +1,4 @@
-import { get, groupBy, reject } from 'lodash'
+import { get, groupBy, reject, maxBy, minBy, last } from 'lodash'
 import { createSelector } from 'reselect'
 import { ETHER_ADDRESS, tokens, ether, GREEN, RED } from '../helpers'
 import moment from 'moment'
@@ -29,7 +29,6 @@ const cancelledOrders = state => get(state, 'exchange.cancelledOrders.data', [])
 export const cancelledOrdersSelector = createSelector(cancelledOrders, (orders) => {
   // Sort data in desceding order
   orders = orders.sort((a, b) => b.timestamp - a.timestamp)
-  // console.log(orders)
 })
 
 // Filled orders
@@ -46,7 +45,6 @@ export const filledOrdersSelector = createSelector(filledOrders, (orders) => {
 
   // Sort data in descending order
   orders = orders.sort((a, b) => b.timestamp - a.timestamp)
-  // console.log(orders)
   return orders
 })
 
@@ -59,7 +57,6 @@ const allOrders = state => get(state, 'exchange.allOrders.data', [])
 export const allOrdersSelector = createSelector(allOrders, (orders) => {
   // Sort orders in descinding order
   orders = orders.sort((a, b) => b.timestamp - a.timestamp)
-  // console.log(orders)
 })
 
 const decorateFilledOrders = (orders) => {
@@ -146,11 +143,7 @@ export const orderBookSelector = createSelector(
   openOrders,
   (orders) => {
     // Decorate orders
-    console.log("BEFORE")
-    console.log(orders)
     orders = decorateOrderBookOrders(orders)
-    console.log("AFTER")
-    console.log(orders)
     // Group orders by "orderType"
     orders = groupBy(orders, 'orderType')
     // Fetch buy orders
@@ -167,7 +160,6 @@ export const orderBookSelector = createSelector(
       ...orders,
       sellOrders: sellOrders.sort((a, b) => b.tokenPrice - a.tokenPrice)
     }
-    console.log(orders)
     return orders
   }
 )
@@ -266,4 +258,48 @@ const decorateMyOpenOrder = (order, account) => {
     orderType,
     orderTypeClass: (orderType === 'buy' ? GREEN : RED)
   })
+}
+
+export const priceChartLoadedSelector = createSelector(filledOrdersLoaded, loaded => loaded)
+export const priceChartSelector = createSelector(
+  filledOrders,
+  (orders) => {
+    orders = orders.sort((a, b) => a.timestamp - b.timestamp)
+    orders = orders.map((o) => decorateOrder(o))
+    // Get last two order for fianl price & price change
+    let secondLastOrder, lastOrder
+    [secondLastOrder, lastOrder] = orders.slice(orders.length - 2, orders.length)
+    // Get last order price
+    const lastPrice = get(lastOrder, 'tokenPrice', 0)
+    const secondLastPrice = get(secondLastOrder, 'tokenPrice', 0)
+    return ({
+      lastPrice,
+      lastPriceChange: (lastPrice >= secondLastPrice ? '+' : '-'),
+      series: [{
+        data: buildGraphData(orders)
+      }]
+    })
+  }
+)
+
+const buildGraphData = (orders) => {
+  // Group the orders by hour for the graph
+  orders = groupBy(orders, (o) => moment.unix(o.timestamp).startOf('hour').format())
+  // Get each hour where data exists
+  const hours = Object.keys(orders)
+  // Build the graph series
+  const graphData = hours.map((hour) => {
+    // Fetch all the orders from current hour
+    const group = orders[hour]
+    // Calculate price values - open, high, low, close
+    const open = group[0] // first order
+    const high = maxBy(group, 'tokenPrice') // high price
+    const low = minBy(group, 'tokenPrice') // low price
+    const close = group[group.length - 1]  // last order
+    return ({
+      x: new Date(hour),
+      y: [open.tokenPrice, high.tokenPrice, low.tokenPrice, close.tokenPrice]
+    })
+  })
+  return graphData
 }

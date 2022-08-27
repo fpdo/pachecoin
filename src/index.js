@@ -1,5 +1,5 @@
-import App from './components/App';
 import 'bootstrap/dist/css/bootstrap.css';
+import App from './components/App';
 import configureStore from './store/configureStore';
 import { configure } from '@testing-library/react';
 import React, { Component } from 'react';

@@ -4,7 +4,6 @@ import { orderBookLoadedSelector, orderBookSelector } from '../store/selectors'
 import Spinner from './Spinner'
 
 const renderOrder = (order) => {
-  console.log(order)
   return (
     <tr key={order.id}>
       <td>{order.tokenAmount}</td>
@@ -16,7 +15,6 @@ const renderOrder = (order) => {
 
 const showOrderBook = (props) => {
   const { orderBook } = props
-  // console.log(orderBook)
   return (
     <tbody>
       {orderBook.sellOrders.map((order) => renderOrder(order, props))}
@@ -33,8 +31,6 @@ const showOrderBook = (props) => {
 }
 class OrderBook extends Component {
   render() {
-    // console.log(this.props.orderBookLoaded)
-    console.log(this.props.orderBook)
     return (
       <div className="vertical">
         <div className="card bg-dark text-white">
