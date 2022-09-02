@@ -1,4 +1,4 @@
-import { get, groupBy, reject, maxBy, minBy, last } from 'lodash'
+import { get, groupBy, reject, maxBy, minBy, last, create } from 'lodash'
 import { createSelector } from 'reselect'
 import { ETHER_ADDRESS, tokens, ether, GREEN, RED } from '../helpers'
 import moment from 'moment'
@@ -303,3 +303,6 @@ const buildGraphData = (orders) => {
   })
   return graphData
 }
+
+const orderCancelling = state => get(state, 'exchange.orderCancelling', false)
+export const orderCancellingSelector = createSelector(orderCancelling, status => status)

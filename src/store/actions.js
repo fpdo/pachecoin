@@ -14,25 +14,25 @@ export function web3AccountLoaded(account) {
 }
 
 // TOKEN
-export function tokenLoaded(token) {
+export function tokenLoaded(contract) {
   return {
     type: 'TOKEN_LOADED',
-    token
+    contract
   }
 }
 
 // EXCHANGE
-export function exchangeLoaded(exchange) {
+export function exchangeLoaded(contract) {
   return {
     type: 'EXCHANGE_LOADED',
-    exchange
+    contract
   }
 }
 
 // CANCELLED ORDERS
 export function cancelledOrdersLoaded(cancelledOrders) {
   return {
-    type: 'CANCELLED ORDERS LOADED',
+    type: 'CANCELLED_ORDERS_LOADED',
     cancelledOrders
   }
 }
@@ -40,7 +40,7 @@ export function cancelledOrdersLoaded(cancelledOrders) {
 // FILLED ORDERS
 export function filledOrdersLoaded(filledOrders) {
   return {
-    type: 'FILLED ORDERS LOADED',
+    type: 'FILLED_ORDERS_LOADED',
     filledOrders
   }
 }
@@ -48,7 +48,20 @@ export function filledOrdersLoaded(filledOrders) {
 // ALL ORDERS
 export function allOrdersLoaded(allOrders) {
   return {
-    type: 'ALL ORDERS LOADED',
+    type: 'ALL_ORDERS_LOADED',
     allOrders
+  }
+}
+
+export function orderCancelling() {
+  return {
+    type: 'ORDER_CANCELLING'
+  }
+}
+
+export function orderCancelled(order) {
+  return {
+    type: 'ORDER_CANCELLED',
+    order
   }
 }

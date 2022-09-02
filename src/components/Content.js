@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { exchangeSelector } from "../store/selectors"
-import { loadWeb3, loadExchange, loadAllOrders } from "../store/interactions"
+import { loadAllOrders, subscribeToEvents } from "../store/interactions"
 import OrderBook from "./OrderBook"
 import Trades from './Trades'
 import MyTransactions from "./MyTransactions"
@@ -9,15 +9,13 @@ import PriceChart from "./PriceChart"
 
 class Content extends Component {
   componentDidMount() {
-    this.loadBlockchainData(this.props.dispatch)
+    this.loadBlockchainData(this.props)
   }
 
-  async loadBlockchainData(dispatch) {
-    // TODO: Hacky, need to find a way to load order using the props
-    const web3 = await loadWeb3(dispatch)
-    const networkId = await web3.eth.net.getId()
-    const exchange = await loadExchange(dispatch, networkId, web3)
+  async loadBlockchainData(props) {
+    const { dispatch, exchange } = props
     await loadAllOrders(dispatch, exchange)
+    await subscribeToEvents(dispatch, exchange)
   }
 
   render() {
