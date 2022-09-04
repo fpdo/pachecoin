@@ -1,4 +1,4 @@
-import { get, groupBy, reject, maxBy, minBy, last, create } from 'lodash'
+import { get, groupBy, reject, maxBy, minBy } from 'lodash'
 import { createSelector } from 'reselect'
 import { ETHER_ADDRESS, tokens, ether, GREEN, RED } from '../helpers'
 import moment from 'moment'

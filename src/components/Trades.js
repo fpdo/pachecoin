@@ -1,10 +1,6 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import {
-  cancelledOrdersLoadedSelector, cancelledOrdersSelector,
-  filledOrdersLoadedSelector, filledOrdersSelector,
-  allOrdersLoadedSelector, allOrderSelector, allOrdersSelector
-} from '../store/selectors'
+import { filledOrdersLoadedSelector, filledOrdersSelector } from '../store/selectors'
 import Spinner from './Spinner'
 
 const showFilledOrders = (filledOrders) => {
@@ -52,11 +48,7 @@ class Trades extends Component {
 function mapStateToProps(state) {
   return {
     filledOrdersLoaded: filledOrdersLoadedSelector(state),
-    filledOrders: filledOrdersSelector(state),
-    cancelledOrdersLoaded: cancelledOrdersLoadedSelector(state),
-    cancelledOrders: cancelledOrdersSelector(state),
-    allOrdersLoaded: allOrdersLoadedSelector(state),
-    allOrders: allOrdersSelector(state),
+    filledOrders: filledOrdersSelector(state)
   }
 }
 
