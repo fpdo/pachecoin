@@ -1,15 +1,30 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { orderBookLoadedSelector, orderBookSelector } from '../store/selectors'
+import { OverlayTrigger, Tooltip } from "react-bootstrap"
 import Spinner from './Spinner'
+import {
+  orderBookLoadedSelector, orderBookSelector,
+  exchangeSelector, accountSelector, orderFillingSelector
+} from '../store/selectors'
+import { fillOrder } from "../store/interactions"
 
-const renderOrder = (order) => {
+const renderOrder = (order, props) => {
+  const { dispatch, exchange, account } = props
   return (
-    <tr key={order.id}>
-      <td>{order.tokenAmount}</td>
-      <td className={`text-${order.orderTypeClass}`}>{order.tokenPrice}</td>
-      <td>{order.etherAmount}</td>
-    </tr>
+    <OverlayTrigger
+      key={order.id}
+      placement='auto'
+      overlay={
+        <Tooltip id={order.id}>
+          {`Click here to ${order.orderFillAction}`}
+        </Tooltip>
+      }>
+      <tr key={order.id} className="order-book-order" onClick={(e) => fillOrder(dispatch, exchange, order, account)}>
+        <td>{order.tokenAmount}</td>
+        <td className={`text-${order.orderTypeClass}`}>{order.tokenPrice}</td>
+        <td>{order.etherAmount}</td>
+      </tr>
+    </OverlayTrigger>
   )
 }
 
@@ -39,7 +54,7 @@ class OrderBook extends Component {
           </div>
           <div className="card-body order-book">
             <table className="table table-dark table-sm small">
-              {this.props.orderBookLoaded ? showOrderBook(this.props) : <Spinner type='table' />}
+              {this.props.showOrderBook ? showOrderBook(this.props) : <Spinner type='table' />}
             </table>
           </div>
         </div>
@@ -49,9 +64,13 @@ class OrderBook extends Component {
 }
 
 function mapStateToProps(state) {
+  const orderBookLoaded = orderBookLoadedSelector(state)
+  const orderFilling = orderFillingSelector(state)
   return {
-    orderBookLoaded: orderBookLoadedSelector(state),
-    orderBook: orderBookSelector(state)
+    showOrderBook: orderBookLoaded && !orderFilling,
+    orderBook: orderBookSelector(state),
+    exchange: exchangeSelector(state),
+    account: accountSelector(state)
   }
 }
 

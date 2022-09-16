@@ -1,11 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './components/App';
 import configureStore from './store/configureStore';
-import { configure } from '@testing-library/react';
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -32,6 +32,7 @@ const showMyOpenOrders = (props) => {
   return (
     <tbody>
       {myOpenOrders.map((order) => {
+        console.log('ORDER TYPE' + order.orderTypeClass)
         return (
           <tr key={order.id}>
             <td className={`text-${order.orderTypeClass}`}>{order.tokenAmount}</td>
